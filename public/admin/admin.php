@@ -77,7 +77,7 @@
               <span class="hide-menu">Users</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" aria-expanded="false">
+              <a class="sidebar-link"  href="./user_list.php" aria-expanded="false">
                 <span>
                   <i class="ti ti-user-circle"></i>
                 </span>

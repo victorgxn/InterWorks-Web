@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="image/png" href="../../src-modernize/assets/images/interworks/logo-removebg-preview.png" />
     <?php require '../../util/acess_control.php'; ?>
     <?php require '../../util/db_connection.php'; ?>
-    <?php require '../../util/product.php'; ?>
+    <?php require '../../util/user.php'; ?>
 </head>
 
 <body>
@@ -67,7 +67,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" aria-expanded="false">
+                            <a class="sidebar-link" href="./inventory.php" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-basket"></i>
                                 </span>
@@ -94,58 +94,13 @@
         </aside>
         <!--  Sidebar End -->
         <!--  Main wrapper -->
-        <?php
-        if (isset($_POST["deleteProduct"])) {
-            $idProducto = $_POST["idProducto"];
-
-            $sql = "SELECT imagen FROM productos WHERE idProducto = '$idProducto'";
-            $resultado = $conexion->query($sql);
-
-            if (!$resultado) {
-                die("Error al obtener la imagen del producto");
-            }
-
-            $ruta_img = $resultado->fetch_assoc()["imagen"];
-
-            if (file_exists($ruta_img)) {
-                unlink($ruta_img);
-            }
-
-            $sql3 = "DELETE FROM productos WHERE idProducto = '$idProducto' ";
-
-            if ($conexion->query($sql3)) {
-                echo '<script>alert("Producto ' . $idProducto . ' eliminado de la base de datos");</script>';
-            } else {
-                echo '<script>alert("Error: ' . $sql3 . '\n' . $conexion->error . '");</script>';
-            }
-        }
-
-        ?>
-        <?php
-        $sql = "SELECT * FROM productos";
-        $resultado = $conexion->query($sql);
-
-        $productos = [];
-
-        while ($fila = $resultado->fetch_assoc()) {
-            $nuevo_producto = new Producto(
-                $fila["idProducto"],
-                $fila["nombreProducto"],
-                $fila["precio"],
-                $fila["descripcion"],
-                $fila["cantidad"],
-                $fila["imagen"]
-            );
-            array_push($productos, $nuevo_producto);
-        }
-        ?>
         <div class="body-wrapper">
             <div class="container-fluid">
                 <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4 border border-warning">
                     <div class="card-body px-4 py-3">
                         <div class="row align-items-center">
                             <div class="col-9">
-                                <h4 class="fw-semibold mb-8">Inventory</h4>
+                                <h4 class="fw-semibold mb-8">User list</h4>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
@@ -167,39 +122,67 @@
                 </div>
                 <div class="card">
                     <div class="card-body border border-warning">
-                        <div class="card-body p-4 pb-0">
+                        <div class="container ">
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <a class="btn btn-primary d-lg-none d-flex" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                                     <i class="ti ti-menu-2 fs-6"></i>
                                 </a>
-                                <h5 class="fs-5 fw-semibold mb-0 d-none d-lg-block">Products</h5>
+                                <h5 class="fs-5 fw-semibold mb-0 d-none d-lg-block">Users table</h5>
                                 <form class="position-relative ">
-                                    <input type="text" class="form-control search-chat py-2 ps-5 border border-warning" id="text-srh" placeholder="Search Product">
+                                    <input type="text" class="form-control search-chat py-2 ps-5 border border-warning" id="text-srh" placeholder="Search user">
                                     <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
                                 </form>
                             </div>
-                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                                <?php foreach ($productos as $producto) : ?>
-                                    <div class="col">
-                                        <div class="card hover-img overflow-hidden rounded-2 border border-warning">
-                                            <div class="position-relative">
-                                                <a href="#"><img src="<?php echo $producto->imagen; ?>" class="card-img-top rounded-0" alt="..." width="100" height="300px"></a>
-                                            </div>
-                                            <div class="card-body pt-3 p-4">
-                                                <h6 class="fw-semibold fs-4"><?php echo $producto->nombreProducto; ?></h6>
-                                                <p class="fs-3 text-dark mb-0"><?php echo $producto->descripcion; ?></p>
-                                                <p class="fs-3 text-dark mb-0"><?php echo $producto->precio . " €"; ?></p>
-                                                <div class="footer">
-                                                    <form action="" method="post">
-                                                        <input type="hidden" name="idProducto" value="<?php echo $producto->idProducto ?>">
-                                                        <input type="hidden" name="deleteProduct" value="true">
-                                                        <input class="btn btn-warning float-end" type="submit" value="Eliminar">
-                                                    </form>
-                                                </div>
-                                            </div>
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-20">
+                                    <div class="panel">
+                                        <div class="panel-body table-responsive">
+                                            <table class="table border border-warning">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Usuario</th>
+                                                        <th>Gmail</th>
+                                                        <th>Fecha de nacimiento</th>
+                                                        <th>Rol</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <?php
+                                                    $sql = "SELECT * FROM usuarios";
+                                                    $resultado = $conexion->query($sql);
+
+                                                    $usuarios = [];
+
+                                                    while ($fila = $resultado->fetch_assoc()) {
+                                                        $nuevo_usuario = new Usuario(
+                                                            $fila["usuario"],
+                                                            $fila["contrasena"],
+                                                            $fila["fechaNacimiento"],
+                                                            $fila["rol"]
+                                                        );
+                                                        array_push($usuarios, $nuevo_usuario);
+                                                    }
+                                                    foreach ($usuarios as $usuario) { ?>
+                                                        <tr>
+                                                            <td><?php echo $usuario->usuario ?> </td>
+                                                            <!-- Utiliza el nombre de usuario para construir la dirección de correo electrónico -->
+                                                            <td>
+                                                                <?php
+                                                                $nombre_usuario = $usuario->usuario;
+                                                                $correo_electronico = $nombre_usuario . "@gmail.com";
+                                                                echo $correo_electronico;
+                                                                ?>
+                                                            </td>
+                                                            <td><?php echo $usuario->fechaNacimiento ?> </td>
+                                                            <td><?php echo $usuario->rol ?> </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                                <?php endforeach; ?>
+                                </div>
                             </div>
                         </div>
                     </div>

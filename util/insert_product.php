@@ -81,7 +81,7 @@
   }
   ?>
   <div>
-    <h2>Insertar producto <i class="ti ti-hanger fs-6"></i></h2>
+    <h4 class="fw-semibold mb-8">Inser product</h4>
     <div>
       <form action="" method="post" enctype="multipart/form-data">
         <div class="form-floating mb-3">
@@ -124,9 +124,9 @@
     echo "<label style='color: orange'>" . "Producto insertado correctamente" . "</label>";
     if ($conexion->query($sql)) {
       move_uploaded_file($ruta_temporal, $ruta_final);
-      echo "<script>Console.log('Producto insertado correctamente');</script>";
+      echo "<script>console.log('Producto insertado correctamente');</script>";
     } else {
-      echo "<script>Console.log('Error: " . $sql . "<br>" . $conexion->error . "');</script>";
+      echo "<script>console.log('Error: " . $sql . "<br>" . $conexion->error . "');</script>";
     }
   }
 
