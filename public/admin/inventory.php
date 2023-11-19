@@ -183,7 +183,7 @@
                                     <div class="col">
                                         <div class="card hover-img overflow-hidden rounded-2 border border-warning">
                                             <div class="position-relative">
-                                                <a href="#"><img src="<?php echo $producto->imagen; ?>" class="card-img-top rounded-0" alt="..." width="100" height="300px"></a>
+                                                <a href="#"><img src="<?php echo $producto->imagen; ?>" class="card-img-top rounded-0" alt="..." width="100" height="320px"></a>
                                             </div>
                                             <div class="card-body pt-3 p-4">
                                                 <h6 class="fw-semibold fs-4"><?php echo $producto->nombreProducto; ?></h6>
