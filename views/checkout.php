@@ -26,19 +26,14 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="css/style.css" />
     <link rel="shortcut icon" type="image/png" href="./img/logo-removebg-preview.png" />
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
     <?php require '../util/acess_control.php'; ?>
-
+    <?php require "../util/db_connection.php" ?>
+    <?php require "./shopping-cart/cesta.php" ?>
 </head>
 
 <body>
-    <?php acces_control_basic(); ?>
     <!-- HEADER -->
+    <?php acces_control_basic(); ?>
     <?php include '../public/header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
@@ -59,38 +54,38 @@
         <!-- /container -->
     </div>
     <div class="container mt-5">
-    <h2>Carrito</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Edad</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Juan</td>
-                <td>Pérez</td>
-                <td>25</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Maria</td>
-                <td>Gomez</td>
-                <td>30</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Carlos</td>
-                <td>Ruiz</td>
-                <td>22</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        <h2>Carrito</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Edad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Juan</td>
+                    <td>Pérez</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Maria</td>
+                    <td>Gomez</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Carlos</td>
+                    <td>Ruiz</td>
+                    <td>22</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <!-- NEWSLETTER -->
     <div id="newsletter" class="section">
