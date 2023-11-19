@@ -36,6 +36,7 @@
 </head>
 
 <body>
+	<?php session_start(); ?>
 	<?php include '../public/header.php'; ?>
 	<!-- SECTION -->
 	<div class="section">
@@ -90,33 +91,6 @@
 		<!-- /container -->
 	</div>
 	<!-- /SECTION -->
-	<?php
-	if (isset($_POST["deleteProduct"])) {
-		$idProducto = $_POST["idProducto"];
-
-		$sql = "SELECT imagen FROM productos WHERE idProducto = '$idProducto'";
-		$resultado = $conexion->query($sql);
-
-		if (!$resultado) {
-			die("Error al obtener la imagen del producto");
-		}
-
-		$ruta_img = $resultado->fetch_assoc()["imagen"];
-
-		if (file_exists($ruta_img)) {
-			unlink($ruta_img);
-		}
-
-		$sql3 = "DELETE FROM productos WHERE idProducto = '$idProducto' ";
-
-		if ($conexion->query($sql3)) {
-			echo '<script>alert("Producto ' . $idProducto . ' eliminado de la base de datos");</script>';
-		} else {
-			echo '<script>alert("Error: ' . $sql3 . '\n' . $conexion->error . '");</script>';
-		}
-	}
-
-	?>
 	<?php
 	$sql = "SELECT * FROM productos";
 	$resultado = $conexion->query($sql);

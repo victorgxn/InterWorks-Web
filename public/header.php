@@ -10,7 +10,6 @@
             </ul>
             <ul class="header-links pull-right">
                 <?php
-                session_start();
                 if (isset($_SESSION["usuario"]) && isset($_SESSION["rol"])) {
                     $usuario = $_SESSION["usuario"];
                     $rol = $_SESSION["rol"];
@@ -47,7 +46,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a href="../views/index.php" class="logo">
                             <img src="../views/img/logo-removeblanco-preview.png" alt="" width="80">
                         </a>
                     </div>
@@ -87,7 +86,7 @@
                         <div class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>Your Cart</span>
+                                <span>Your order</span>
                                 <div class="qty">3</div>
                             </a>
                             <div class="cart-dropdown">
@@ -119,8 +118,8 @@
                                     <h5>SUBTOTAL: $2940.00</h5>
                                 </div>
                                 <div class="cart-btns">
-                                    <a href="#">View Cart</a>
-                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="../views/checkout.php">View Cart</a>
+                                    <a href="../views/checkout.php">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +153,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="../views/index.php">Home</a></li>
                 <li><a href="#">Hot Deals</a></li>
                 <li><a href="#">Categories</a></li>
                 <li><a href="#">Laptops</a></li>
