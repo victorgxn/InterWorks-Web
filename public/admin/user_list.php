@@ -166,7 +166,7 @@
                                                         array_push($usuarios, $nuevo_usuario);
                                                     }
                                                     ?> <?php
-                                                        // Añadir stock
+                                                        // Dar poderes de admin
                                                         if (isset($_POST["poderAdmin"])) {
                                                             $nombreUsuario = $_POST["nombreUsuario"];
                                                             $sql = "UPDATE usuarios SET rol = 'admin' where usuario = '$nombreUsuario' ";
@@ -176,33 +176,66 @@
                                                             Swal.fire({icon: "success",
                                                             title: "Admin powers granted!",
                                                             showConfirmButton: false,
-                                                            timer: 1000});</script>';
+                                                            timer: 1000
+                                                        });</script>';
                                                             } else {
                                                                 echo '<script>alert("Error: ' . $sql3 . '\n' . $conexion->error . '");</script>';
                                                             }
                                                         }
-                                                        ?><?php
-                                                            foreach ($usuarios as $usuario) { ?>
-                                                    <tr>
-                                                        <td><?php echo $usuario->usuario ?> </td>
-                                                        <td>
-                                                            <?php
+                                                        ?>
+                                                    <?php
+                                                    // Quitar poderes de admin
+                                                    if (isset($_POST["quitarPoderAdmin"])) {
+                                                        $nombreUsuario = $_POST["nombreUsuario"];
+                                                        $sql = "UPDATE usuarios SET rol = 'cliente' where usuario = '$nombreUsuario' ";
+                                                        $resultado = $conexion->query($sql);
+                                                        if ($resultado) {
+                                                            echo '<script>
+                                                            Swal.fire({
+                                                                icon: "success",
+                                                                title: "Deleted admin powers!",
+                                                                showConfirmButton: false,
+                                                                timer: 1000,
+                                                            });
+                                                        </script>';
+                                                        } else {
+                                                            echo '<script>alert("Error: ' . $sql3 . '\n' . $conexion->error . '");</script>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    foreach ($usuarios as $usuario) { ?>
+                                                        <tr>
+                                                            <td><?php echo $usuario->usuario ?> </td>
+                                                            <td>
+                                                                <?php
                                                                 $nombre_usuario = $usuario->usuario;
                                                                 $correo_electronico = $nombre_usuario . "@gmail.com";
                                                                 echo $correo_electronico;
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo $usuario->fechaNacimiento ?> </td>
-                                                        <td><?php echo $usuario->rol ?> </td>
-                                                        <td>
-                                                            <form action="" method="post" class="d-block mx-auto">
-                                                                <input type="hidden" name="nombreUsuario" value="<?php echo $usuario->usuario ?>">
-                                                                <input type="hidden" name="poderAdmin" value="true">
-                                                                <input class="btn btn-warning float-end" type="submit" value="Admin">
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                <?php } ?>
+                                                                ?>
+                                                            </td>
+                                                            <td><?php echo $usuario->fechaNacimiento ?> </td>
+                                                            <td><?php echo $usuario->rol ?> </td>
+                                                            <td>
+                                                                <?php if ($usuario->rol != 'admin') { ?>
+                                                                    <form action="" method="post">
+                                                                        <input type="hidden" name="nombreUsuario" value="<?php echo $usuario->usuario ?>">
+                                                                        <input type="hidden" name="poderAdmin" value="true">
+                                                                        <input class="btn btn-warning" type="submit" value="Give powers">
+                                                                    </form>
+                                                                <?php } else {
+                                                                ?>
+                                                                    <form action="" method="post">
+                                                                        <input type="hidden" name="nombreUsuario" value="<?php echo $usuario->usuario ?>">
+                                                                        <input type="hidden" name="quitarPoderAdmin" value="true">
+                                                                        <input class="btn btn-danger" type="submit" value="Delete powers">
+                                                                    </form>
+                                                                    <?php
+                                                                    ?>
+                                                            </td>
+                                                        <?php } ?>
+                                                        </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
