@@ -111,9 +111,11 @@
                 unlink($ruta_img);
             }
 
-            $sql3 = "DELETE FROM productos WHERE idProducto = '$idProducto' ";
+            $sql = "DELETE FROM productoscestas WHERE idProducto = '$idProducto' ";
+            $conexion->query($sql);
+            $sql = "DELETE FROM productos WHERE idProducto = '$idProducto' ";
 
-            if ($conexion->query($sql3)) {
+            if ($conexion->query($sql)) {
                 echo '<script>alert("Producto ' . $idProducto . ' eliminado de la base de datos");</script>';
             } else {
                 echo '<script>alert("Error: ' . $sql3 . '\n' . $conexion->error . '");</script>';

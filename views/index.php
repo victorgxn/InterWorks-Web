@@ -24,13 +24,6 @@
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 	<link rel="shortcut icon" type="image/png" href="./img/logo-removebg-preview.png" />
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
 	<?php require "../util/db_connection.php" ?>
 	<?php require '../util/product.php'; ?>
 </head>
@@ -91,6 +84,7 @@
 		<!-- /container -->
 	</div>
 	<!-- /SECTION -->
+
 	<?php
 	$sql = "SELECT * FROM productos";
 	$resultado = $conexion->query($sql);
@@ -107,6 +101,25 @@
 			$fila["imagen"]
 		);
 		array_push($productos, $nuevo_producto);
+	}
+	?>
+	<?php
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		if (isset($_POST["addProduct"])) {
+			$idProducto = $_POST["idProducto"];
+			$cantidad = (int)$_POST["cantidad"];
+
+			$sql3 = "INSERT INTO productoscestas (idProducto, idCesta, cantidad) VALUES ('$idProducto', (SELECT idCesta FROM cestas WHERE usuario = '$usuario'), '$cantidad')";
+
+			if ($conexion->query($sql3)) {
+				echo "<script>alert('Producto añadido correctamente')</script>";
+				//actualiza la cantidad de productos
+				$sql4 = "UPDATE productos SET cantidad = cantidad - '$cantidad' WHERE idProducto = '$idProducto'";
+				$conexion->query($sql4);
+			} else {
+				echo "Error: " . $sql3 . "<br>" . $conexion->error;
+			}
+		}
 	}
 	?>
 	<!-- SECTION -->
@@ -163,13 +176,26 @@
 													<i class="fa fa-star"></i>
 												</div>
 												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+
 												</div>
 											</div>
 											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart" name="btnAccion" value="Agregar" type="submit"></i> add to cart</button>
+												<form action="" method="POST">
+													<select name="cantidad" class="form-control">
+														<option value="" selected disabled>Selecciona una cantidad</option>
+														<?php
+														for ($i = 1; $i <= $producto->cantidad; $i++) {
+															echo "<option value='$i'>$i</option>";
+														}
+														?>
+													</select>
+													<div class="mb-2">
+														<input type="hidden" name="idProducto" value="<?php echo $producto->idProducto ?>">
+														<input type="hidden" name="addProduct" value="true">
+														<br>
+													</div>
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart" name="btnAccion" value="Agregar" type="submit"></i> add to cart</button>
+												</form>
 											</div>
 										</div>
 									<?php endforeach; ?>
@@ -190,6 +216,7 @@
 	<!-- /SECTION -->
 
 	<!-- NEWSLETTER -->
+	<br>
 	<div id="newsletter" class="section">
 		<!-- container -->
 		<div class="container">
@@ -293,7 +320,6 @@
 		<!-- /top footer -->
 	</footer>
 	<!-- /FOOTER -->
-
 	<!-- jQuery Plugins -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
