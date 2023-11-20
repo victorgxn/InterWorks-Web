@@ -36,8 +36,7 @@
 
 <body>
     <!-- HEADER -->
-    <?php acces_control_basic();
-    ?>
+    <?php acces_control_basic();?>
     <?php require '../public/header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
@@ -197,7 +196,10 @@
             <h4>Total: <span id="precioTotal" class="badge badge-success"><?php echo $precioTotal?></span></h4>
         </div>
         <div class="text-right mt-4">
-            <button class="btn btn-danger">Comprar</button>
+            <a href="./place_order.php">
+                <button class="btn btn-danger">Comprar</button>
+            </a>
+            
         </div>
     </div>
 <?php require './footer.php'; ?>
