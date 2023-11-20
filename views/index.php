@@ -33,6 +33,7 @@
 </head>
 
 <body>
+	<?php session_start() ?>
 	<?php require '../public/header.php'; ?>
 	<!-- SECTION -->
 	<div class="section">

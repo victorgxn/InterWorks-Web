@@ -10,5 +10,6 @@ class Productocesta
         $this->idProducto = $idProducto;
         $this->idCesta = $idCesta;
         $this->cantidad = $cantidad;
+
     }
 }

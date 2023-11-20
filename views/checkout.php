@@ -36,9 +36,9 @@
 
 <body>
     <!-- HEADER -->
-    <?php acces_control_basic();  
+    <?php acces_control_basic();
     ?>
-    <?php include '../public/header.php'; ?>
+    <?php require '../public/header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
         <!-- container -->
@@ -94,7 +94,7 @@
         $nuevo_productocesta = new Productocesta(
             $fila["idProducto"],
             $fila["idCesta"],
-            $fila["cantidad"],
+            $fila["cantidad"]
         );
         array_push($productoscesta, $nuevo_productocesta);
     }
@@ -132,9 +132,11 @@
                                 <thead>
                                     <tr>
                                         <th>Product name</th>
+                                        <th>Prize</th>
                                         <th>Quantity</th>
                                         <th>Product</th>
                                         <th>Remove product</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -155,6 +157,13 @@
                                             }
                                             echo $nuevo_producto->nombreProducto ?>
                                         </td>
+                                        <?php $precio = "SELECT precio FROM productos WHERE idProducto = '$productocesta->idProducto'";
+                                        $resultado = $conexion->query($precio);
+                                        $precio = $resultado->fetch_assoc()["precio"];
+                                        // $precio_sin_ceros = rtrim($precio, '0');
+                                        // $precio_sin_ceros_sin_punto = str_replace(".", "", $precio_sin_ceros);
+                                        ?>
+                                        <td><?php echo (int)$precio ?> </td>
                                         <td><?php echo $productocesta->cantidad ?> </td>
                                         <td><?php
                                             foreach ($productos as $nuevo_producto) {
