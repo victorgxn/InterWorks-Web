@@ -36,7 +36,7 @@
 
 <body>
     <!-- HEADER -->
-    <?php acces_control_basic();?>
+    <?php acces_control_basic(); ?>
     <?php require '../public/header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
@@ -161,7 +161,7 @@
                                         $resultado = $conexion->query($precio);
                                         $precio = $resultado->fetch_assoc()["precio"];
                                         //Calculamos tambien el total de la compra
-                                        $precioTotal = $precioTotal + $precio;
+                                        $precioTotal +=  ($precio * $productocesta->cantidad);
                                         // $precio_sin_ceros = rtrim($precio, '0');
                                         // $precio_sin_ceros_sin_punto = str_replace(".", "", $precio_sin_ceros);
                                         ?>
@@ -193,13 +193,13 @@
             </div>
         </div>
         <div class="text-right mt-4">
-            <h4>Total: <span id="precioTotal" class="badge badge-success"><?php echo $precioTotal?></span></h4>
+            <h4>Total: <span id="precioTotal" class="badge badge-success"><?php echo $precioTotal ?></span></h4>
         </div>
         <div class="text-right mt-4">
             <a href="./place_order.php">
                 <button class="btn btn-danger">Comprar</button>
             </a>
-            
+
         </div>
     </div>
-<?php require './footer.php'; ?>
+    <?php require './footer.php'; ?>
