@@ -1,4 +1,5 @@
 <!-- HEADER -->
+<?php session_start()  ?>
 <header>
     <!-- TOP HEADER -->
     <div id="top-header">
@@ -59,8 +60,8 @@
                         <form>
                             <select class="input-select">
                                 <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
+                                <option value="1">Cooking</option>
+                                <option value="1">Cooking</option>
                             </select>
                             <input class="input" placeholder="Search here">
                             <button class="search-btn">Search</button>

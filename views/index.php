@@ -30,7 +30,6 @@
 </head>
 
 <body>
-	<?php acces_control_basic() ?>
 	<?php include '../public/header.php'; ?>
 	<!-- SECTION -->
 	<div class="section">
@@ -168,7 +167,7 @@
 											<div class="product-body">
 												<h3 class="product-name"><a href="#"><?php echo $producto->nombreProducto; ?></a></h3>
 												<h5 class="product-category"><?php echo $producto->descripcion; ?></h5>
-												<h4 class="product-price"><?php echo $producto->precio . " €"; ?><del class="product-old-price"><?php echo $producto->precio . " €"; ?></del></h4>
+												<h4 class="product-price"><?php echo $producto->precio . " €"; ?><del class="product-old-price"><?php echo (($producto->precio)+120) . " €"; ?></del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>

@@ -28,12 +28,14 @@
     <link rel="shortcut icon" type="image/png" href="./img/logo-removebg-preview.png" />
     <?php require '../util/acess_control.php'; ?>
     <?php require "../util/db_connection.php" ?>
-    <?php require "./shopping-cart/cesta.php" ?>
+    <?php require "./shopping-cart/object_cesta.php" ?>
+    <?php require "../util/product.php" ?>
 </head>
 
 <body>
     <!-- HEADER -->
-    <?php acces_control_basic(); ?>
+    <?php //acces_control_basic();  
+    ?>
     <?php include '../public/header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
@@ -53,38 +55,126 @@
         </div>
         <!-- /container -->
     </div>
-    <div class="container mt-5">
-        <h2>Carrito</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Edad</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Juan</td>
-                    <td>Pérez</td>
-                    <td>25</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Maria</td>
-                    <td>Gomez</td>
-                    <td>30</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Carlos</td>
-                    <td>Ruiz</td>
-                    <td>22</td>
-                </tr>
-            </tbody>
-        </table>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $productocesta = $_POST["productocesta"];
+
+        // Obtener la cantidad del producto en la cesta
+        $sqlCantidad = "SELECT cantidad FROM productoscestas WHERE IdCesta IN (SELECT IdCesta FROM cestas WHERE usuario='$usuario') AND idProducto='$productocesta'";
+        $resultadoCantidad = $conexion->query($sqlCantidad);
+        $cantidadEliminada = $resultadoCantidad->fetch_assoc()["cantidad"];
+
+        // Eliminar el producto de la cesta
+        $sqlDelete = "DELETE FROM productoscestas WHERE IdCesta IN (SELECT IdCesta FROM cestas WHERE usuario='$usuario') AND idProducto='$productocesta'";
+        if ($conexion->query($sqlDelete)) {
+            echo "Producto en la cesta eliminado correctamente";
+            // Actualizar la cantidad del producto en la tabla de productos
+            $sqlUpdate = "UPDATE productos SET cantidad = cantidad + $cantidadEliminada WHERE idProducto = '$productocesta'";
+            $conexion->query($sqlUpdate);
+        } else {
+            echo "Error al eliminar el producto de la cesta: " . $conexion->error;
+        }
+    }
+    ?>
+
+    <?php
+    //productoscestas
+    $sql = "SELECT * FROM productoscestas where idCesta = (SELECT idCesta FROM cestas WHERE usuario='$usuario')";
+    $resultado = $conexion->query($sql);
+
+    $productoscesta = [];
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $nuevo_productocesta = new Productocesta(
+            $fila["idProducto"],
+            $fila["idCesta"],
+            $fila["cantidad"],
+        );
+        array_push($productoscesta, $nuevo_productocesta);
+    }
+
+    //productos
+    $sql2 = "SELECT * FROM productos";
+    $resultado = $conexion->query($sql2);
+
+    $productos = [];
+
+    // Creación de objetos Producto a partir de los resultados de la consulta
+    while ($fila = $resultado->fetch_assoc()) {
+        $nuevo_producto = new Producto(
+            $fila["idProducto"],
+            $fila["nombreProducto"],
+            $fila["precio"],
+            $fila["descripcion"],
+            $fila["cantidad"],
+            $fila["imagen"]
+        );
+        array_push($productos, $nuevo_producto);
+    }
+    ?>
+
+    <div class="container" data-aos="zoom-in-up">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-20">
+                <div class="panel">
+                    <div class="panel-body table-responsive">
+                        <?php
+                        // Verifica si hay productos para mostrar y agrega el encabezado de la tabla si es necesario
+                        if (!empty($productoscesta)) {
+                        ?>
+                            <table class="table border border-warning">
+                                <thead>
+                                    <tr>
+                                        <th>Product name</th>
+                                        <th>Quantity</th>
+                                        <th>Product</th>
+                                        <th>Remove product</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                            } else {
+                                echo "<h3 class='at-item'><b>No items in your shopping cart</b><i class='fa fa-shopping-cart'></i></h3>";
+                            }
+                                ?>
+
+                                <?php
+                                foreach ($productoscesta as $productocesta) { ?>
+                                    <tr>
+                                        <td><?php
+                                            foreach ($productos as $nuevo_producto) {
+                                                if ($productocesta->idProducto == $nuevo_producto->idProducto) {
+                                                    break;
+                                                }
+                                            }
+                                            echo $nuevo_producto->nombreProducto ?>
+                                        </td>
+                                        <td><?php echo $productocesta->cantidad ?> </td>
+                                        <td><?php
+                                            foreach ($productos as $nuevo_producto) {
+                                                if ($productocesta->idProducto == $nuevo_producto->idProducto) {
+                                                    break;
+                                                }
+                                            }
+                                            ?>
+                                            <?php $ruta =  $nuevo_producto->imagen;
+                                            $ruta = str_replace('../../', '../', $ruta); ?>
+                                            <img src="<?php echo $ruta; ?>" alt="imagen-producto" width="35">
+                                        </td>
+                                        <td>
+                                            <form action="" method="post">
+                                                <input type="hidden" name="productocesta" value="<?php echo $productocesta->idProducto ?>">
+                                                <input class="btn btn-danger" type="submit" value="Eliminar">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- NEWSLETTER -->

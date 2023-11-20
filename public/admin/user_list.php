@@ -166,7 +166,6 @@
                                                     foreach ($usuarios as $usuario) { ?>
                                                         <tr>
                                                             <td><?php echo $usuario->usuario ?> </td>
-                                                            <!-- Utiliza el nombre de usuario para construir la dirección de correo electrónico -->
                                                             <td>
                                                                 <?php
                                                                 $nombre_usuario = $usuario->usuario;
