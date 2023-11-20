@@ -88,7 +88,7 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your order</span>
-                                <div class="qty">3</div>
+                                <div class="qty" display hidden>3</div>
                             </a>
                             <div class="cart-dropdown">
                                 <div class="cart-list">
