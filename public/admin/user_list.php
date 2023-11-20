@@ -7,6 +7,7 @@
     <title>Admin dashboard - InterWorks</title>
     <link rel="stylesheet" href="../../src-modernize/assets/css/styles.min.css" />
     <link rel="shortcut icon" type="image/png" href="../../src-modernize/assets/images/interworks/logo-removebg-preview.png" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php require '../../util/acess_control.php'; ?>
     <?php require '../../util/db_connection.php'; ?>
     <?php require '../../util/user.php'; ?>
@@ -144,6 +145,7 @@
                                                         <th>Gmail</th>
                                                         <th>Fecha de nacimiento</th>
                                                         <th>Rol</th>
+                                                        <th>Admin powers</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -163,20 +165,44 @@
                                                         );
                                                         array_push($usuarios, $nuevo_usuario);
                                                     }
-                                                    foreach ($usuarios as $usuario) { ?>
-                                                        <tr>
-                                                            <td><?php echo $usuario->usuario ?> </td>
-                                                            <td>
-                                                                <?php
+                                                    ?> <?php
+                                                        // Añadir stock
+                                                        if (isset($_POST["poderAdmin"])) {
+                                                            $nombreUsuario = $_POST["nombreUsuario"];
+                                                            $sql = "UPDATE usuarios SET rol = 'admin' where usuario = '$nombreUsuario' ";
+                                                            $resultado = $conexion->query($sql);
+                                                            if ($resultado) {
+                                                                echo '<script>
+                                                            Swal.fire({icon: "success",
+                                                            title: "Admin powers granted!",
+                                                            showConfirmButton: false,
+                                                            timer: 1000});</script>';
+                                                            } else {
+                                                                echo '<script>alert("Error: ' . $sql3 . '\n' . $conexion->error . '");</script>';
+                                                            }
+                                                        }
+                                                        ?><?php
+                                                            foreach ($usuarios as $usuario) { ?>
+                                                    <tr>
+                                                        <td><?php echo $usuario->usuario ?> </td>
+                                                        <td>
+                                                            <?php
                                                                 $nombre_usuario = $usuario->usuario;
                                                                 $correo_electronico = $nombre_usuario . "@gmail.com";
                                                                 echo $correo_electronico;
-                                                                ?>
-                                                            </td>
-                                                            <td><?php echo $usuario->fechaNacimiento ?> </td>
-                                                            <td><?php echo $usuario->rol ?> </td>
-                                                        </tr>
-                                                    <?php } ?>
+                                                            ?>
+                                                        </td>
+                                                        <td><?php echo $usuario->fechaNacimiento ?> </td>
+                                                        <td><?php echo $usuario->rol ?> </td>
+                                                        <td>
+                                                            <form action="" method="post" class="d-block mx-auto">
+                                                                <input type="hidden" name="nombreUsuario" value="<?php echo $usuario->usuario ?>">
+                                                                <input type="hidden" name="poderAdmin" value="true">
+                                                                <input class="btn btn-warning float-end" type="submit" value="Admin">
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
