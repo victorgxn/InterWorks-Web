@@ -68,8 +68,8 @@
 
         // Eliminar el producto de la cesta
         $sqlDelete = "DELETE FROM productoscestas WHERE IdCesta IN (SELECT IdCesta FROM cestas WHERE usuario='$usuario') AND idProducto='$productocesta'";
-        if ($conexion->query($sqlDelete)) {
-            echo '<script>
+        if ($conexion->query($sqlDelete)) { //alert de producto eliminado
+            echo '<script> 
             Swal.fire({icon: "success",
             title: "Product removed from cart",
             showConfirmButton: false,

@@ -114,7 +114,7 @@
 
 			$sql3 = "INSERT INTO productoscestas (idProducto, idCesta, cantidad) VALUES ('$idProducto', (SELECT idCesta FROM cestas WHERE usuario = '$usuario'), '$cantidad')";
 
-			if ($conexion->query($sql3)) {
+			if ($conexion->query($sql3)) { //alert de producto añadido
 				echo '<script>
             Swal.fire({icon: "success",
             title: "Product added to the cart",
