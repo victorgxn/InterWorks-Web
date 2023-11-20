@@ -11,7 +11,7 @@
             </ul>
             <ul class="header-links pull-right">
                 <?php
-                if (isset($_SESSION["usuario"]) && isset($_SESSION["rol"])) {
+                if (isset($_SESSION["usuario"]) && ($_SESSION["rol"])) {
                     $usuario = $_SESSION["usuario"];
                     $rol = $_SESSION["rol"];
                 } else {
@@ -75,10 +75,10 @@
                     <div class="header-ctn">
                         <!-- Wishlist -->
                         <div>
-                            <a href="#">
+                            <a href="../public/error/error.php">
                                 <i class="fa fa-heart-o"></i>
                                 <span>Your Wishlist</span>
-                                <div class="qty">2</div>
+                                <div class="qty" display hidden>0</div>  <!--Quitar el display hidden en un futuro para que se vea el 0-->
                             </a>
                         </div>
                         <!-- /Wishlist -->

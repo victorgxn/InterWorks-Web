@@ -23,6 +23,9 @@
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<!-- Sweet alert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!-- Icon page -->
 	<link rel="shortcut icon" type="image/png" href="./img/logo-removebg-preview.png" />
 	<?php require "../util/db_connection.php" ?>
 	<?php require '../util/product.php'; ?>
@@ -30,7 +33,7 @@
 </head>
 
 <body>
-	<?php include '../public/header.php'; ?>
+	<?php require '../public/header.php'; ?>
 	<!-- SECTION -->
 	<div class="section">
 		<!-- container -->
@@ -112,7 +115,11 @@
 			$sql3 = "INSERT INTO productoscestas (idProducto, idCesta, cantidad) VALUES ('$idProducto', (SELECT idCesta FROM cestas WHERE usuario = '$usuario'), '$cantidad')";
 
 			if ($conexion->query($sql3)) {
-				echo "<script>alert('Producto añadido correctamente')</script>";
+				echo '<script>
+            Swal.fire({icon: "success",
+            title: "Product added to the cart",
+            showConfirmButton: false,
+            timer: 1000});</script>';
 				//actualiza la cantidad de productos
 				$sql4 = "UPDATE productos SET cantidad = cantidad - '$cantidad' WHERE idProducto = '$idProducto'";
 				$conexion->query($sql4);
@@ -167,7 +174,7 @@
 											<div class="product-body">
 												<h3 class="product-name"><a href="#"><?php echo $producto->nombreProducto; ?></a></h3>
 												<h5 class="product-category"><?php echo $producto->descripcion; ?></h5>
-												<h4 class="product-price"><?php echo $producto->precio . " €"; ?><del class="product-old-price"><?php echo (($producto->precio)+120) . " €"; ?></del></h4>
+												<h4 class="product-price"><?php echo $producto->precio . " €"; ?><del class="product-old-price"><?php echo (($producto->precio) + 120) . " €"; ?></del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
@@ -177,7 +184,7 @@
 												</div>
 												<div class="product-btns">
 													<?php
-													if ($rol == "cliente" || $rol == "admin") {
+													if ($usuario != "invitado") {
 													?>
 														<form action="" method="POST">
 															<select name="cantidad" class="form-control">
@@ -201,6 +208,8 @@
 										<?php
 													} else {
 										?>
+										</div>
+								</div>
 								<div class="add-to-cart">
 									<a href="../public/log_in.php">
 										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Sing in</button>
@@ -296,7 +305,6 @@
 							</ul>
 						</div>
 					</div>
-
 					<div class="clearfix visible-xs"></div>
 
 					<div class="col-md-3 col-xs-6">

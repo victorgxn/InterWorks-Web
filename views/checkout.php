@@ -22,6 +22,8 @@
 
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="css/style.css" />
@@ -67,7 +69,11 @@
         // Eliminar el producto de la cesta
         $sqlDelete = "DELETE FROM productoscestas WHERE IdCesta IN (SELECT IdCesta FROM cestas WHERE usuario='$usuario') AND idProducto='$productocesta'";
         if ($conexion->query($sqlDelete)) {
-            echo "Producto en la cesta eliminado correctamente";
+            echo '<script>
+            Swal.fire({icon: "success",
+            title: "Product removed from cart",
+            showConfirmButton: false,
+            timer: 1000});</script>';
             // Actualizar la cantidad del producto en la tabla de productos
             $sqlUpdate = "UPDATE productos SET cantidad = cantidad + $cantidadEliminada WHERE idProducto = '$productocesta'";
             $conexion->query($sqlUpdate);
