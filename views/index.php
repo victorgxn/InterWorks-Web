@@ -26,10 +26,11 @@
 	<link rel="shortcut icon" type="image/png" href="./img/logo-removebg-preview.png" />
 	<?php require "../util/db_connection.php" ?>
 	<?php require '../util/product.php'; ?>
+	<?php require '../util/acess_control.php'; ?>
 </head>
 
 <body>
-	<?php session_start(); ?>
+	<?php acces_control_basic() ?>
 	<?php include '../public/header.php'; ?>
 	<!-- SECTION -->
 	<div class="section">
@@ -156,7 +157,7 @@
 									<?php foreach ($productos as $producto) : ?>
 										<div class="product">
 											<div class="product-img">
-												<?php $ruta =  $producto->imagen;;
+												<?php $ruta =  $producto->imagen;
 												$ruta = str_replace('../../', '../', $ruta); ?>
 												<img src="<?php echo $ruta; ?>" alt="">
 												<div class="product-label">
@@ -176,47 +177,59 @@
 													<i class="fa fa-star"></i>
 												</div>
 												<div class="product-btns">
-
+													<?php
+													if ($rol == "cliente" || $rol == "admin") {
+													?>
+														<form action="" method="POST">
+															<select name="cantidad" class="form-control">
+																<option value="" selected disabled hidden>Selecciona una cantidad</option>
+																<?php
+																for ($i = 1; $i <= $producto->cantidad; $i++) {
+																	echo "<option value='$i'>$i</option>";
+																}
+																?>
+															</select>
+															<div class="mb-2">
+																<input type="hidden" name="idProducto" value="<?php echo $producto->idProducto ?>">
+																<input type="hidden" name="addProduct" value="true">
+															</div>
 												</div>
 											</div>
 											<div class="add-to-cart">
-												<form action="" method="POST">
-													<select name="cantidad" class="form-control">
-														<option value="" selected disabled>Selecciona una cantidad</option>
-														<?php
-														for ($i = 1; $i <= $producto->cantidad; $i++) {
-															echo "<option value='$i'>$i</option>";
-														}
-														?>
-													</select>
-													<div class="mb-2">
-														<input type="hidden" name="idProducto" value="<?php echo $producto->idProducto ?>">
-														<input type="hidden" name="addProduct" value="true">
-														<br>
-													</div>
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart" name="btnAccion" value="Agregar" type="submit"></i> add to cart</button>
-												</form>
+												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart" name="btnAccion" value="Agregar" type="submit"></i> add to cart</button>
 											</div>
-										</div>
-									<?php endforeach; ?>
-									<!-- /product -->
+											</form>
+										<?php
+													} else {
+										?>
+								<div class="add-to-cart">
+									<a href="../public/log_in.php">
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Sing in</button>
+									</a>
 								</div>
-								<div id="slick-nav-1" class="products-slick-nav"></div>
+							<?php
+													}
+							?>
 							</div>
-							<!-- /tab -->
+						<?php endforeach; ?>
+						<!-- /product -->
 						</div>
+
+						<div id="slick-nav-1" class="products-slick-nav"></div>
 					</div>
+					<!-- /tab -->
 				</div>
-				<!-- Products tab & slick -->
 			</div>
-			<!-- /row -->
 		</div>
-		<!-- /container -->
+		<!-- Products tab & slick -->
+	</div>
+	<!-- /row -->
+	</div>
+	<!-- /container -->
 	</div>
 	<!-- /SECTION -->
 
 	<!-- NEWSLETTER -->
-	<br>
 	<div id="newsletter" class="section">
 		<!-- container -->
 		<div class="container">
