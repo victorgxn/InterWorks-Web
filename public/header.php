@@ -1,5 +1,5 @@
 <!-- HEADER -->
-<?php session_start()  ?>
+<?php session_start() ?>
 <header>
     <!-- TOP HEADER -->
     <div id="top-header">

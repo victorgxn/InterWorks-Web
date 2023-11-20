@@ -184,7 +184,7 @@
 												</div>
 												<div class="product-btns">
 													<?php
-													if ($usuario != "invitado") {
+													if ($usuario != "invitado" && $producto->cantidad > 0) {
 													?>
 														<form action="" method="POST">
 															<select name="cantidad" class="form-control">
@@ -206,30 +206,34 @@
 											</div>
 											</form>
 										<?php
-													} else {
+													} else if ($producto->cantidad == 0) {
 										?>
+
+											<h3 class="product-name">Out of stock</h3>
 										</div>
 								</div>
-								<div class="add-to-cart">
-									<a href="../public/log_in.php">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Sing in</button>
-									</a>
-								</div>
 							<?php
-													}
-							?>
+													} else { ?>
 							</div>
-						<?php endforeach; ?>
-						<!-- /product -->
 						</div>
-
-						<div id="slick-nav-1" class="products-slick-nav"></div>
+						<div class="add-to-cart">
+							<a href="../public/log_in.php">
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Sing in</button>
+							</a>
+						</div>
+					<?php } ?>
 					</div>
-					<!-- /tab -->
+				<?php endforeach; ?>
+				<!-- /product -->
 				</div>
+
+				<div id="slick-nav-1" class="products-slick-nav"></div>
 			</div>
+			<!-- /tab -->
 		</div>
-		<!-- Products tab & slick -->
+	</div>
+	</div>
+	<!-- Products tab & slick -->
 	</div>
 	<!-- /row -->
 	</div>
