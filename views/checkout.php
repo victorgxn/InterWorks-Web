@@ -36,7 +36,7 @@
 
 <body>
     <!-- HEADER -->
-    <?php //acces_control_basic();  
+    <?php acces_control_basic();  
     ?>
     <?php include '../public/header.php'; ?>
     <!-- BREADCRUMB -->
