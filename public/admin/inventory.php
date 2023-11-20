@@ -10,6 +10,7 @@
     <?php require '../../util/acess_control.php'; ?>
     <?php require '../../util/db_connection.php'; ?>
     <?php require '../../util/product.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -95,6 +96,7 @@
         <!--  Sidebar End -->
         <!--  Main wrapper -->
         <?php
+        // Eliminar producto
         if (isset($_POST["deleteProduct"])) {
             $idProducto = $_POST["idProducto"];
 
@@ -107,6 +109,7 @@
 
             $ruta_img = $resultado->fetch_assoc()["imagen"];
 
+            // Eliminar la imagen del producto
             if (file_exists($ruta_img)) {
                 unlink($ruta_img);
             }
@@ -121,9 +124,28 @@
                 echo '<script>alert("Error: ' . $sql3 . '\n' . $conexion->error . '");</script>';
             }
         }
+        // Añadir stock
+        // Añadir stock
+        // Añadir stock
+        // Añadir stock
+        if (isset($_POST["addProducto"])) {
+            $idProducto = $_POST["idProducto2"];
+            $sql = "UPDATE productos SET cantidad = cantidad + 1 WHERE idProducto = '$idProducto' ";
+            $resultado = $conexion->query($sql);
+            if ($resultado) {
+                echo '<script>
+                Swal.fire({icon: "success",
+                title: "Stock added",
+                showConfirmButton: false,
+                timer: 1000});</script>';
+            } else {
+                echo '<script>alert("Error: ' . $sql3 . '\n' . $conexion->error . '");</script>';
+            }
+        }
 
         ?>
         <?php
+        // Añadir stock
         $sql = "SELECT * FROM productos";
         $resultado = $conexion->query($sql);
 
@@ -182,7 +204,7 @@
                             </div>
                             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                                 <?php foreach ($productos as $producto) : ?>
-                                    <div class="col">
+                                    <div class="col text-center">
                                         <div class="card hover-img overflow-hidden rounded-2 border border-warning">
                                             <div class="position-relative">
                                                 <a href="#"><img src="<?php echo $producto->imagen; ?>" class="card-img-top rounded-0" alt="..." width="100" height="320px"></a>
@@ -191,11 +213,17 @@
                                                 <h6 class="fw-semibold fs-4"><?php echo $producto->nombreProducto; ?></h6>
                                                 <p class="fs-3 text-dark mb-0"><?php echo $producto->descripcion; ?></p>
                                                 <p class="fs-3 text-dark mb-0"><?php echo $producto->precio . " €"; ?></p>
-                                                <div class="footer">
-                                                    <form action="" method="post">
+                                                <p class="fs-3 text-dark mb-0"><?php echo "Cantidad: " . $producto->cantidad; ?></p>
+                                                <div class="footer mt-4">
+                                                    <form action="" method="post" style="display: inline-block; margin-right: 10px;">
                                                         <input type="hidden" name="idProducto" value="<?php echo $producto->idProducto ?>">
                                                         <input type="hidden" name="deleteProduct" value="true">
-                                                        <input class="btn btn-warning float-end" type="submit" value="Eliminar">
+                                                        <input class="btn btn-warning float-end" type="submit" value="Eliminar producto">
+                                                    </form>
+                                                    <form action="" method="post" style="display: inline-block;">
+                                                        <input type="hidden" name="idProducto2" value="<?php echo $producto->idProducto ?>">
+                                                        <input type="hidden" name="addProducto" value="true">
+                                                        <input class="btn btn-warning float-end" type="submit" value="Añadir stock">
                                                     </form>
                                                 </div>
                                             </div>
