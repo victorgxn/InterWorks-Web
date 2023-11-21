@@ -485,7 +485,7 @@ textarea.input {
 .header-search form .search-btn {
   height: 40px;
   width: 100px;
-  background: #fdad00;
+  background: #fd9f01;
   color: #FFF;
   font-weight: 700;
   border: none;
@@ -865,8 +865,8 @@ textarea.input {
 }
 
 .product:hover {
-  -webkit-box-shadow: 0px 0px 6px 0px #E4E7ED, 0px 0px 0px 2px #D10024;
-  box-shadow: 0px 0px 6px 0px #E4E7ED, 0px 0px 0px 2px #D10024;
+  -webkit-box-shadow: 0px 0px 6px 0px #E4E7ED, 0px 0px 0px 2px #fdad00;
+  box-shadow: 0px 0px 6px 0px #E4E7ED, 0px 0px 0px 2px #fdad00;
 }
 
 .product .product-img {
@@ -1044,7 +1044,7 @@ textarea.input {
   border: 2px solid transparent;
   height: 40px;
   padding: 0 30px;
-  background-color: #ef233c;
+  background-color: #fdad00;
   color: #FFF;
   text-transform: uppercase;
   font-weight: 700;
@@ -1121,7 +1121,7 @@ textarea.input {
 }
 
 .product-widget .product-body .product-name>a:hover, .product-widget .product-body .product-name>a:focus {
-  color: #D10024;
+  color: #fdad00;
 }
 
 .product-widget .product-body .product-price {
@@ -1538,7 +1538,7 @@ textarea.input {
   border: 2px solid transparent;
   height: 40px;
   padding: 0 30px;
-  background-color: #ef233c;
+  background-color: #fdad00;
   color: #FFF;
   text-transform: uppercase;
   font-weight: 700;
@@ -1963,7 +1963,7 @@ textarea.input {
   width: 160px;
   height: 40px;
   font-weight: 700;
-  background: #fdad00;
+  background: #fd9f01;
   color: #FFF;
   border: none;
   border-radius: 0px 40px 40px 0px;
