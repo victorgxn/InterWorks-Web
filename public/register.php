@@ -43,7 +43,7 @@
             } else {
                 $patron = "/^[A-Za-z_]{4,12}$/";
                 if (!preg_match($patron, $temp_usuario)) {
-                    $err_usuario = "The name can only contain letters or numbers";
+                    $err_usuario = "The name can only contain letters and underscores";
                 } else {
                     $usuario = $temp_usuario;
                 }

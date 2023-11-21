@@ -122,7 +122,7 @@
         </div>
         <div class="card">
           <div class="card-body border border-warning">
-              <?php require '../../util/insert_product.php'; ?>
+              <?php require '../insert_product.php'; ?>
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@
 <body>
     <!-- HEADER -->
     <?php acces_control_basic(); ?>
-    <?php require '../public/header.php'; ?>
+    <?php require './header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
         <!-- container -->

@@ -34,7 +34,7 @@
 
 <body>
 	<?php session_start() ?>
-	<?php require '../public/header.php'; ?>
+	<?php require './header.php'; ?>
 	<!-- SECTION -->
 	<div class="section">
 		<!-- container -->
