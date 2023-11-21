@@ -113,7 +113,8 @@
 			$idProducto = $_POST["idProducto"];
 			$cantidad = (int)$_POST["cantidad"];
 
-			$sql3 = "INSERT INTO productoscestas (idProducto, idCesta, cantidad) VALUES ('$idProducto', (SELECT idCesta FROM cestas WHERE usuario = '$usuario'), '$cantidad')";
+			//Si tenemos un producto y queremos meter mas del mismo en la cesta, se actualiza la cantidad
+			$sql3 = "INSERT INTO productoscestas (idProducto, idCesta, cantidad) VALUES ('$idProducto', (SELECT idCesta FROM cestas WHERE usuario = '$usuario'), '$cantidad') ON DUPLICATE KEY UPDATE cantidad = cantidad + $cantidad";
 
 			if ($conexion->query($sql3)) { //alert de producto añadido
 				echo '<script>
@@ -191,7 +192,7 @@
 															<select name="cantidad" class="form-control">
 																<option value="" selected disabled hidden>Selecciona una cantidad</option>
 																<?php
-																$max = min($producto->cantidad,5);
+																$max = min($producto->cantidad, 5);
 																for ($i = 1; $i <= $max; $i++) {
 																	echo "<option value='$i'>$i</option>";
 																}
