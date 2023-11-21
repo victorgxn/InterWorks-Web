@@ -39,11 +39,11 @@
             $err_usuario = "The name is required";
         } else {
             if (strlen($temp_usuario) > 12 || strlen($temp_usuario) < 4) {
-                $err_usuario = "El nombre de usuario debe de tener entre 4 y 12 caracteres";
+                $err_usuario = "The name must be between 4 and 12 characters";
             } else {
                 $patron = "/^[A-Za-z_]{4,12}$/";
                 if (!preg_match($patron, $temp_usuario)) {
-                    $err_usuario = "El nombre solo pude contener letras o espacios en blanco";
+                    $err_usuario = "The name can only contain letters or numbers";
                 } else {
                     $usuario = $temp_usuario;
                 }
@@ -55,11 +55,11 @@
             $err_contrasena = "The password is required";
         } else {
             if (strlen($temp_contrasena) > 255 || strlen($temp_contrasena) < 4) {
-                $err_contrasena = "La contraseña debe tener minimo 4 caracteres y maximo 255";
+                $err_contrasena = "The password must be between 4 and 255 characters ";
             } else {
-                $patron = "/^[A-Za-z0-9]{4,255}$/";
+                $patron = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/";
                 if (!preg_match($patron, $temp_contrasena)) {
-                    $err_contrasena = "La contraseña solo pude contener letras o numeros";
+                    $err_contrasena = "The password can only contain letters or numbers";
                 } else {
                     $contrasena = $temp_contrasena;
                     $contrasena_cifrada = password_hash($contrasena, PASSWORD_DEFAULT);
@@ -77,25 +77,24 @@
             if ($anyo_actual - $anyo > 12 && $anyo_actual - $anyo < 120) {
                 $fechaNacimiento = $temp_fechaNacimiento;
             } else if ($anyo_actual - $anyo < 12) {
-                $err_fechaNacimiento = "No puedes ser menor de 12 años";
+                $err_fechaNacimiento = "You can't be under 12 years old";
             } else if ($anyo_actual - $anyo > 120) {
-                $err_fechaNacimiento = "No puedes ser mayor de 120 años";
+                $err_fechaNacimiento = "You can't be over 120 years old";
             } else {
                 if ($mes_actual - $mes < 0) {
                     $fechaNacimiento = $temp_fechaNacimiento;
                 } else if ($mes_actual - $mes < 0) {
-                    $err_fechaNacimiento = "No puedes ser menor de 12 o mayor de 120";
+                    $err_fechaNacimiento = "Month is not valid";
                 } else {
                     if ($dia_actual - $dia >= 0) {
                         $fechaNacimiento = $temp_fechaNacimiento;
                     } else {
-                        $err_fechaNacimiento = "No puedes ser menor de 12 o mayor de 120";
+                        $err_fechaNacimiento = "Day is not valid";
                     }
                 }
             }
         }
     }
-    //Probar radial-gradient si no me gusta como se ve el fondo
     ?>
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-nav-barbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
         <div class="position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center">
