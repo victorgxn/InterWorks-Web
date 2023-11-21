@@ -32,6 +32,8 @@
 </head>
 
 <body>
+    <?php acces_control_basic(); ?>
+
     <?php require './header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">

@@ -27,11 +27,12 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="./css/style.css" />
     <link rel="shortcut icon" type="image/png" href="./img/logo-removeblanco-preview.png" />
-
+    <?php require '../util/acess_control.php'; ?>
 </head>
 
 <body>
     <!-- HEADER -->
+    <?php acces_control_basic(); ?>
     <?php require './header.php'; ?>
 
 
