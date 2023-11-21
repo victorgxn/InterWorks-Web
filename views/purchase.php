@@ -11,28 +11,28 @@
 
     <!-- Google font -->
     <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="./css/bootstrap.min.css" />
 
     <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href="../css/slick.css" />
-    <link type="text/css" rel="stylesheet" href="../css/slick-theme.css" />
+    <link type="text/css" rel="stylesheet" href="./css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="./css/slick-theme.css" />
 
     <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href="../css/nouislider.min.css" />
+    <link type="text/css" rel="stylesheet" href="./css/nouislider.min.css" />
 
     <!-- Font Awesome Icon -->
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
 
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="../css/style.css" />
-    <link rel="shortcut icon" type="image/png" href="../img/logo-removeblanco-preview.png" />
+    <link type="text/css" rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" type="image/png" href="./img/logo-removeblanco-preview.png" />
 
 </head>
 
 <body>
     <!-- HEADER -->
-    <?php require '../header.php'; ?>
+    <?php require './header.php'; ?>
 
 
 
@@ -48,4 +48,4 @@
     </div>
 
 
-    <?php require '../footer.php'; ?>
+    <?php require './footer.php'; ?>

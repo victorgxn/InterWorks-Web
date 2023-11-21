@@ -19,6 +19,7 @@
                     $rol = $_SESSION["rol"];
                     $usuario = $_SESSION["usuario"];
                 }
+                
                 ?>
                 <li><a href="#"><i></i><?php echo "Bienvenido " . $usuario ?></a></li>
                 <?php
@@ -46,8 +47,8 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="../views/index.php" class="logo">
-                            <img src="../views/img/logo-removeblanco-preview.png" alt="" width="80">
+                        <a href="./index.php" class="logo">
+                            <img src="./img/logo-removeblanco-preview.png" alt="" width="80">
                         </a>
                     </div>
                 </div>
@@ -153,7 +154,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="../views/index.php">Home</a></li>
+                <li class="active"><a href="./index.php">Home</a></li>
                 <li><a href="#">Hot Deals</a></li>
                 <li><a href="#">Categories</a></li>
                 <li><a href="#">Laptops</a></li>

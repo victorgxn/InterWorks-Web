@@ -5,12 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Electro - HTML Ecommerce Template</title>
+    <title>InterWorks</title>
 
-    <!-- Google font -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
@@ -27,6 +24,7 @@
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" type="image/png" href="./img/logo-removebg-preview.png" />
     <?php require '../util/acess_control.php'; ?>
     <?php require "../util/db_connection.php" ?>
     <?php require "./shopping-cart/object_cesta.php" ?>
@@ -34,7 +32,6 @@
 </head>
 
 <body>
-    <?php acces_control_basic(); ?>
     <?php require './header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">

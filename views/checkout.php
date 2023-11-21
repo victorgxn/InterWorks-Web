@@ -36,7 +36,6 @@
 
 <body>
     <!-- HEADER -->
-    <?php acces_control_basic(); ?>
     <?php require './header.php'; ?>
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
@@ -45,10 +44,10 @@
             <!-- row -->
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="breadcrumb-header">Checkout</h3>
+                    <h3 class="breadcrumb-header">view cart</h3>
                     <ul class="breadcrumb-tree">
                         <li><a href="./index.php">Home</a></li>
-                        <li class="active">Checkout</li>
+                        <li class="active">view cart</li>
                     </ul>
                 </div>
             </div>
@@ -57,7 +56,7 @@
         <!-- /container -->
     </div>
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["action"] == "eliminarProducto") {
         $productocesta = $_POST["productocesta"];
 
         // Obtener la cantidad del producto en la cesta
@@ -194,6 +193,7 @@
                                             <form action="" method="post">
                                                 <input type="hidden" name="productocesta" value="<?php echo $productocesta->idProducto ?>">
                                                 <input class="btn btn-danger" type="submit" value="Delete">
+                                                <input name="action" type="hidden" value="eliminarProducto">
                                             </form>
                                         </td>
                                     </tr>
@@ -203,15 +203,86 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- Formulario realizar el pedido / Comprobar que hay cosas en el carrito -->
         <div class="text-right mt-4">
             <h4>Total: <span id="precioTotal" class="badge badge-success"><?php echo $precioTotal . "€" ?></span></h4>
         </div>
-        <div class="text-right mt-4">
-            <a href="./shopping-cart/purchase.php">
-                <button class="btn btn-success">Purchase</button>
-            </a>
+        <?php
+        $sql = "SELECT * FROM productoscestas where idCesta = (SELECT idCesta FROM cestas WHERE usuario='$usuario')";
+        $resultado = $conexion->query($sql);
+        if ($resultado->num_rows > 0) { ?>
 
-        </div>
+            <form action="" method="post">
+                <div class="text-right mt-4">
+                    <input class="btn btn-success" type="submit" value="Purchase">
+                    <input type="hidden" name="action" value="purchase">
+                </div>
+            </form>
+        <?php
+        }
+        ?>
+        <?php
+        //Linea pedidos
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            // Obtener el ID de la cesta del usuario
+            $sqlCesta = "SELECT idCesta FROM cestas WHERE usuario = '$usuario'";
+            $resultadoCesta = $conexion->query($sqlCesta);
+            $filaCesta = $resultadoCesta->fetch_assoc();
+            $idCesta = $filaCesta['idCesta'];
+
+            // Obtener el precio total de la cesta
+            $sql = "SELECT precioTotal from cestas WHERE idCesta = '$idCesta'";
+            $resultado = $conexion->query($sql);
+            $fila = $resultado->fetch_assoc();
+            $precioTotal = $fila['precioTotal'];
+
+            // Insertar un nuevo pedido
+            $sql = "INSERT INTO pedidos (usuario, precioTotal) VALUES ('$usuario', '$precioTotal')";
+            $conexion->query($sql);
+
+            // Obtener el ID del pedido recién insertado
+            $sql = "SELECT idPedido FROM pedidos WHERE usuario = '$usuario' ORDER BY idPedido DESC LIMIT 1";
+            $resultado = $conexion->query($sql);
+            $fila = $resultado->fetch_assoc();
+            $idPedido = $fila['idPedido'];
+
+            // Insertar productos de la cesta en la tabla LineasPedidos
+            $sql = "SELECT * FROM productoscestas WHERE idCesta = '$idCesta'";
+            $resultado = $conexion->query($sql);
+            $lineaPedido = 1;
+            while ($fila = $resultado->fetch_assoc()) {
+                $idProducto = $fila['idProducto'];
+                $sql = "SELECT precio FROM productos WHERE idProducto = '$idProducto'";
+                $resultado2 = $conexion->query($sql);
+                $fila = $resultado2->fetch_assoc();
+                $precioUnitario = $fila['precio'];
+                $sql = "SELECT cantidad FROM productoscestas WHERE idProducto = '$idProducto' AND idCesta = '$idCesta'";
+                $resultado3 = $conexion->query($sql);
+                $fila = $resultado3->fetch_assoc();
+                $cantidad = $fila['cantidad'];
+
+                // Insertar detalles en la tabla LineasPedidos
+                $sql = "INSERT INTO lineaspedidos (lineaPedido,idProducto, idPedido, precioUnitario,cantidad) VALUES ('$lineaPedido','$idProducto', '$idPedido', '$precioUnitario', '$cantidad')";
+                $conexion->query($sql);
+                $lineaPedido++;
+            }
+
+            // Borrar los productos de la cesta
+            $sql = "DELETE FROM productoscestas WHERE idCesta = '$idCesta'";
+            $conexion->query($sql);
+
+            // Actualizar el precio total de la cesta a 0
+            $sql = "UPDATE cestas SET precioTotal = 0 WHERE usuario = '$usuario'";
+            $conexion->query($sql);
+
+            // Mensaje de éxito para mostrar al usuario
+            $mensaje_pedido = "<div class='alert alert-success mt-3' role='alert'>Pedido realizado con éxito</div>";
+
+            header('Location: place_order.php');
+        }
+
+        ?>
+    </div>
     </div>
     <?php require './footer.php'; ?>
