@@ -76,6 +76,18 @@
             // Actualizar la cantidad del producto en la tabla de productos
             $sqlUpdate = "UPDATE productos SET cantidad = cantidad + $cantidadEliminada WHERE idProducto = '$productocesta'";
             $conexion->query($sqlUpdate);
+            //Actualizar el total en la base de datos
+            $precioTotal = 0;
+            $sql = "SELECT * FROM productoscestas where idCesta = (SELECT idCesta FROM cestas WHERE usuario='$usuario')";
+            $resultado = $conexion->query($sql);
+            while ($fila = $resultado->fetch_assoc()) {
+                $precio = "SELECT precio FROM productos WHERE idProducto = '$fila[idProducto]'";
+                $resultado = $conexion->query($precio);
+                $precio = $resultado->fetch_assoc()["precio"];
+                $precioTotal += $precio * $fila["cantidad"];
+            }
+            $sql = "UPDATE cestas SET precioTotal = '$precioTotal' WHERE usuario = '$usuario'";
+            $conexion->query($sql);
         } else {
             echo "Error al eliminar el producto de la cesta: " . $conexion->error;
         }
@@ -161,9 +173,9 @@
                                         $resultado = $conexion->query($precio);
                                         $precio = $resultado->fetch_assoc()["precio"];
                                         //Calculamos tambien el total de la compra
-                                        $precioTotal +=  ($precio * $productocesta->cantidad);
-                                        // $precio_sin_ceros = rtrim($precio, '0');
-                                        // $precio_sin_ceros_sin_punto = str_replace(".", "", $precio_sin_ceros);
+                                        $precioTotal += $precio * $productocesta->cantidad;
+                                        $sql = "UPDATE cestas SET precioTotal = '$precioTotal' WHERE usuario = '$usuario'";
+                                        $conexion->query($sql);
                                         ?>
                                         <td><?php echo (int)$precio ?> </td>
                                         <td><?php echo $productocesta->cantidad ?> </td>
@@ -193,7 +205,7 @@
             </div>
         </div>
         <div class="text-right mt-4">
-            <h4>Total: <span id="precioTotal" class="badge badge-success"><?php echo $precioTotal ?></span></h4>
+            <h4>Total: <span id="precioTotal" class="badge badge-success"><?php echo $precioTotal . "€" ?></span></h4>
         </div>
         <div class="text-right mt-4">
             <a href="./place_order.php">

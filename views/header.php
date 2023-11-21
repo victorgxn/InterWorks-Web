@@ -119,7 +119,7 @@
                                 </div>
                                 <div class="cart-btns">
                                     <a href="../views/checkout.php">View Cart</a>
-                                    <a href="../views/place_order.php">Place order <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="../public/error/error.php">Place order <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
