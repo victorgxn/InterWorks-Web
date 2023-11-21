@@ -216,7 +216,7 @@
             <form action="" method="post">
                 <div class="text-right mt-4">
                     <input class="btn btn-success" type="submit" value="Purchase">
-                    <input type="hidden" name="action" value="purchase">
+                    <input name="action" type="hidden" value="carritoCompletado">
                 </div>
             </form>
         <?php
@@ -224,7 +224,7 @@
         ?>
         <?php
         //Linea pedidos
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["action"] == "carritoCompletado") {
 
             // Obtener el ID de la cesta del usuario
             $sqlCesta = "SELECT idCesta FROM cestas WHERE usuario = '$usuario'";
@@ -277,8 +277,6 @@
             $sql = "UPDATE cestas SET precioTotal = 0 WHERE usuario = '$usuario'";
             $conexion->query($sql);
 
-            // Mensaje de éxito para mostrar al usuario
-            $mensaje_pedido = "<div class='alert alert-success mt-3' role='alert'>Pedido realizado con éxito</div>";
 
             header('Location: place_order.php');
         }
