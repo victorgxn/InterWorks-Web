@@ -181,7 +181,7 @@
                                         <td>
                                             <form action="" method="post">
                                                 <input type="hidden" name="productocesta" value="<?php echo $productocesta->idProducto ?>">
-                                                <input class="btn btn-danger" type="submit" value="Eliminar">
+                                                <input class="btn btn-danger" type="submit" value="Delete">
                                             </form>
                                         </td>
                                     </tr>
@@ -197,7 +197,7 @@
         </div>
         <div class="text-right mt-4">
             <a href="./place_order.php">
-                <button class="btn btn-danger">Comprar</button>
+                <button class="btn btn-success">Purchase</button>
             </a>
 
         </div>

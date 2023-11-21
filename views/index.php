@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link type="text/css" rel="stylesheet" href="./css/style.css" />
 	<!-- Sweet alert -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- Icon page -->
@@ -219,7 +219,7 @@
 						</div>
 						<div class="add-to-cart">
 							<a href="../public/log_in.php">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Sing in</button>
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Sign in</button>
 							</a>
 						</div>
 					<?php } ?>
