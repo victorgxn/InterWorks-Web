@@ -191,7 +191,8 @@
 															<select name="cantidad" class="form-control">
 																<option value="" selected disabled hidden>Selecciona una cantidad</option>
 																<?php
-																for ($i = 1; $i <= $producto->cantidad; $i++) {
+																$max = min($producto->cantidad,5);
+																for ($i = 1; $i <= $max; $i++) {
 																	echo "<option value='$i'>$i</option>";
 																}
 																?>
