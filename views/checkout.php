@@ -208,7 +208,7 @@
             <h4>Total: <span id="precioTotal" class="badge badge-success"><?php echo $precioTotal . "€" ?></span></h4>
         </div>
         <div class="text-right mt-4">
-            <a href="./place_order.php">
+            <a href="./shopping-cart/purchase.php">
                 <button class="btn btn-success">Purchase</button>
             </a>
 
