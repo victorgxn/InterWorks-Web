@@ -45,7 +45,7 @@
                 <div class="col-md-3 col-xs-6">
                     <div class="footer">
                         <h3 class="footer-title">About Us</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                        <p>Welcome to InterWorks, your one-stop destination for high-quality and reliable electronic components. With a commitment to excellence, we pride ourselves on being a leading supplier in the industry, catering to the diverse needs of businesses and individuals alike..</p>
                         <ul class="footer-links">
                             <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
                             <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>

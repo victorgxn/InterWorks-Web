@@ -34,7 +34,7 @@
             $err_usuario = "The user already exists";
         }
 
-        #Validar usuario
+        # Validar usuario
         if (strlen($temp_usuario) == 0) {
             $err_usuario = "The name is required";
         } else {
@@ -50,7 +50,7 @@
             }
         }
 
-        #Validar contrasena
+        # Validar contrasena
         if (strlen($temp_contrasena) == 0) {
             $err_contrasena = "The password is required";
         } else {
@@ -59,7 +59,7 @@
             } else {
                 $patron = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/";
                 if (!preg_match($patron, $temp_contrasena)) {
-                    $err_contrasena = "The password can only contain letters or numbers";
+                    $err_contrasena = "The password must contain at least one lowercase letter, one uppercase letter, one number and one special character";
                 } else {
                     $contrasena = $temp_contrasena;
                     $contrasena_cifrada = password_hash($contrasena, PASSWORD_DEFAULT);
@@ -67,7 +67,7 @@
             }
         }
 
-        #Validar fecha de nacimiento
+        # Validar fecha de nacimiento
         if (strlen($temp_fechaNacimiento) == 0) {
             $err_fechaNacimiento = "The birth date is required";
         } else {
