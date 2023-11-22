@@ -23,6 +23,7 @@
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="./css/font-awesome.min.css">
 
+    <!-- Bootstrap -->
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="./css/style.css" />
@@ -36,15 +37,25 @@
     <?php require './header.php'; ?>
 
     <div class="section">
+    <div class="container">
+        <div class="row d-flex align-items-center">
 
-        <div class="container">
+            <?php echo "<h3 class='at-item'><b>Compra realizada, gracias por comprar en InterWorks </b><i class='fa fa-shopping-cart'></i></h3>" ?>
 
-            <div class="row">
-                <?php echo "<h3 class='at-item'><b>Purchase done thanks for buy in InterWorks </b><i class='fa fa-shopping-cart'></i></h3>" ?>
-            </div>
+            <!-- Primer botón con estilo en línea -->
+            <a href="./index.php" class="btn btn-warning" style="margin-right: 10px;">Go back to the shop</a>
+
+            <!-- Segundo botón con estilo en línea -->
+            <form action="./pdf/invoice.php" class="d-inline-block">
+                <input type="submit" class="btn btn-info" value="Download the bill" />
+            </form>
+
         </div>
-
     </div>
+</div>
+
+
+
 
 
     <?php require './footer.php'; ?>
