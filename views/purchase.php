@@ -35,8 +35,6 @@
     <?php acces_control_basic(); ?>
     <?php require './header.php'; ?>
 
-
-
     <div class="section">
 
         <div class="container">

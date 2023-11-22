@@ -213,74 +213,14 @@
         $resultado = $conexion->query($sql);
         if ($resultado->num_rows > 0) { ?>
 
-            <form action="" method="post">
+            <form action="./shopping-cart/realizar_pedido.php" method="post">
                 <div class="text-right mt-4">
                     <input class="btn btn-success" type="submit" value="Purchase">
-                    <input name="action" type="hidden" value="carritoCompletado">
+                    <input type="hidden" name="action" value="realizarPedido">
                 </div>
             </form>
         <?php
         }
-        ?>
-        <?php
-        //Linea pedidos
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["action"] == "carritoCompletado") {
-
-            // Obtener el ID de la cesta del usuario
-            $sqlCesta = "SELECT idCesta FROM cestas WHERE usuario = '$usuario'";
-            $resultadoCesta = $conexion->query($sqlCesta);
-            $filaCesta = $resultadoCesta->fetch_assoc();
-            $idCesta = $filaCesta['idCesta'];
-
-            // Obtener el precio total de la cesta
-            $sql = "SELECT precioTotal from cestas WHERE idCesta = '$idCesta'";
-            $resultado = $conexion->query($sql);
-            $fila = $resultado->fetch_assoc();
-            $precioTotal = $fila['precioTotal'];
-
-            // Insertar un nuevo pedido
-            $sql = "INSERT INTO pedidos (usuario, precioTotal) VALUES ('$usuario', '$precioTotal')";
-            $conexion->query($sql);
-
-            // Obtener el ID del pedido recién insertado
-            $sql = "SELECT idPedido FROM pedidos WHERE usuario = '$usuario' ORDER BY idPedido DESC LIMIT 1";
-            $resultado = $conexion->query($sql);
-            $fila = $resultado->fetch_assoc();
-            $idPedido = $fila['idPedido'];
-
-            // Insertar productos de la cesta en la tabla LineasPedidos
-            $sql = "SELECT * FROM productoscestas WHERE idCesta = '$idCesta'";
-            $resultado = $conexion->query($sql);
-            $lineaPedido = 1;
-            while ($fila = $resultado->fetch_assoc()) {
-                $idProducto = $fila['idProducto'];
-                $sql = "SELECT precio FROM productos WHERE idProducto = '$idProducto'";
-                $resultado2 = $conexion->query($sql);
-                $fila = $resultado2->fetch_assoc();
-                $precioUnitario = $fila['precio'];
-                $sql = "SELECT cantidad FROM productoscestas WHERE idProducto = '$idProducto' AND idCesta = '$idCesta'";
-                $resultado3 = $conexion->query($sql);
-                $fila = $resultado3->fetch_assoc();
-                $cantidad = $fila['cantidad'];
-
-                // Insertar detalles en la tabla LineasPedidos
-                $sql = "INSERT INTO lineaspedidos (lineaPedido,idProducto, idPedido, precioUnitario,cantidad) VALUES ('$lineaPedido','$idProducto', '$idPedido', '$precioUnitario', '$cantidad')";
-                $conexion->query($sql);
-                $lineaPedido++;
-            }
-
-            // Borrar los productos de la cesta
-            $sql = "DELETE FROM productoscestas WHERE idCesta = '$idCesta'";
-            $conexion->query($sql);
-
-            // Actualizar el precio total de la cesta a 0
-            $sql = "UPDATE cestas SET precioTotal = 0 WHERE usuario = '$usuario'";
-            $conexion->query($sql);
-
-
-            header('Location: place_order.php');
-        }
-
         ?>
     </div>
     </div>
