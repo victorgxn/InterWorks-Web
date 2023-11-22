@@ -12,7 +12,7 @@
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario registrarse</title>
+    <title>InterWorks</title>
     <link rel="shortcut icon" type="image/png" href="../src-modernize/assets/images/interworks/logo-removebg-preview.png" />
     <link rel="stylesheet" href="../src-modernize/assets/css/styles.min.css" />
     <?php require '../util/functions.php' ?>
