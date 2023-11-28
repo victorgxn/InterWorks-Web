@@ -1,6 +1,10 @@
+# 📌 Overview
+
+InterWorks-Web is a PHP and Bootstrap-based web page project.
+
 <p align="center">
 <a href=https://github.com/victorgxn/InterWorks-Web target="_blank">
-<img src='/placeholder.jpg' width="100%" alt="Banner" />
+<img src='./README/fotoViews.jpg' width="100%" alt="Banner" />
 </a>
 </p>
 
@@ -15,10 +19,6 @@
 
 <p></p>
 <p></p>
-
-# 📌 Overview
-
-InterWorks-Web is a PHP and Bootstrap-based web page project.
 
 ## 📁 Project Structure
 
